@@ -2,7 +2,7 @@ class StocksController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @stocks = current_user.stocks
+    @stocks = current_user.stocks.order(expiration_date: :asc)
   end
 
   def new
