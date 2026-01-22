@@ -1,13 +1,29 @@
 <h1>stocook</h1>
 
-<% @stocks.each do |stock| %>
-  <% if stock.expiration_date && stock.expiration_date <= Date.today + 2 %>
-    <p style="color: red;">
-        !賞味期限アラート! <%= stock.name %>
-        &lt;残<%= (stock.expiration_date - Date.today).to_i %>日&gt;
-    </p>
+<div style="text-align: right; margin-bottom: 10px;">
+    <%= Time.zone.now.strftime("%Y年%m月%d日 %H:%M") %>
+</div>
+
+<% 
+    expiring_stocks = []
+    @stocks.each do |stock|
+        if stock.expiration_date && stock.expiration_date <= Time.zone.now.to_date + 2
+            expiring_stocks.push(stock)
+        end
+    end
+%>
+
+<% if expiring_stocks.size > 0 %>
+    <div style="color: red; border: 2px solid red; padding: 10px; margin-bottom: 15px;">
+    <h3>!賞味期限アラート!</h3>
+    <% expiring_stocks.each do |stock| %>
+        <%= stock.name %>
+        &lt;残<%= (stock.expiration_date - Time.zone.now.to_date).to_i %>日&gt;<br>
     <% end %>
+    </div>
 <% end %>
+
+<%= link_to '食材登録', new_stock_path %>
 
 <table border="1">
     <thead>
@@ -25,11 +41,12 @@
                 <td><%= stock.quantity %></td>
                 <td><%= stock.expiration_date %></td>
                 <td>
-                    <%= link_to '削除', stock_path(stock), method: :delete %>
+                    <div style="display: flex; align-items: center; gap: 5px;">
+                        <%= link_to '編集', edit_stock_path(stock) %>
+                        <%= button_to '削除', stock_path(stock), method: :delete %>
+                    </div>
                 </td>
             </tr>
         <% end %>
     </tbody>
 </table>
-
-<%= link_to '食材登録', new_stock_path %>

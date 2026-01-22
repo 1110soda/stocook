@@ -1,4 +1,4 @@
-<h1>食材登録</h1>
+<h1>食材編集</h1>
 
 <%= form_with model: @stock, local: true do |f| %>
     <div>
@@ -17,7 +17,7 @@
         <%= f.label :expiration_date, "賞味期限" %><br>
         <%= f.date_field :expiration_date %>
     </div>
-    <%= f.submit "登録" %>
+    <%= f.submit "更新" %>
 <% end %>
 
 <%= link_to '戻る', stocks_path %>

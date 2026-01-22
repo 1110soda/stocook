@@ -18,6 +18,19 @@ class StocksController < ApplicationController
     end
   end
 
+  def edit
+    @stock = current_user.stocks.find(params[:id])
+  end
+
+  def update
+    @stock = current_user.stocks.find(params[:id])
+    if @stock.update(stock_params)
+      redirect_to stocks_path
+    else
+      render :edit
+    end
+  end
+
   def destroy
     stock = current_user.stocks.find(params[:id])
     stock.destroy

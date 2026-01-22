@@ -24,13 +24,13 @@
   </head>
 
   <body>
-    <header style="background-color: #eee; padding: 10px;">
+    <header style="background-color: #eee; padding: 10px; display: flex; justify-content: flex-end; align-items: center; gap: 5px;">
       <% if user_signed_in? %>
-        <%= current_user.email %> |
+        <%= link_to current_user.email, user_path(current_user) %> |
         <%= button_to 'ログアウト', destroy_user_session_path, method: :delete %>
       <% else %>
-        <%= button_to 'ログイン', new_user_session_path %> |
-        <%= button_to '新規登録', new_user_registration_path %>
+        <%= link_to 'ログイン', new_user_session_path %> |
+        <%= link_to '新規登録', new_user_registration_path %>
       <% end %>
     </header>
     <%= yield %>

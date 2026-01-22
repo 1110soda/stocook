@@ -1,0 +1,25 @@
+<h1>ユーザープロフィール</h1>
+
+<p>
+    メールアドレス:
+    <%= @user.email %>
+</p>
+
+<div style="display: flex; justify-content: flex-start; align-items: center; gap: 10px;">
+    <h3>体質</h3> |
+    <% if current_user.id == @user.id %>
+        <%= link_to '編集', edit_user_path(@user) %>
+    <% end %>
+</div>
+
+<p>
+    アレルギー・苦手なもの:<br>
+    <%= @user.allergies %>
+</p>
+
+<p>
+    食べられる量:<br>
+    <%= @user.appetite %>
+</p>
+
+<%= link_to '戻る', stocks_path %>
