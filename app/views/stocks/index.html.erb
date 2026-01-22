@@ -1,0 +1,35 @@
+<h1>stocook</h1>
+
+<% @stocks.each do |stock| %>
+  <% if stock.expiration_date && stock.expiration_date <= Date.today + 2 %>
+    <p style="color: red;">
+        !賞味期限アラート! <%= stock.name %>
+        &lt;残<%= (stock.expiration_date - Date.today).to_i %>日&gt;
+    </p>
+    <% end %>
+<% end %>
+
+<table border="1">
+    <thead>
+        <tr>
+            <th>食材［カテゴリー］</th>
+            <th>残量</th>
+            <th>賞味期限</th>
+            <th>操作</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @stocks.each do |stock| %>
+            <tr>
+                <td><%= stock.name %>［<%= stock.category %>］</td>
+                <td><%= stock.quantity %></td>
+                <td><%= stock.expiration_date %></td>
+                <td>
+                    <%= link_to '削除', stock_path(stock), method: :delete %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<%= link_to '食材登録', new_stock_path %>
