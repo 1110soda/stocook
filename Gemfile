@@ -60,6 +60,8 @@ group :development do
 end
 
 group :test do
+  # Use sqlite3 as the database for Active Record
+  gem "sqlite3", ">= 2.1"
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
